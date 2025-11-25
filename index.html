@@ -1,4 +1,11 @@
 cls
 Write-Host "Keeping computer awake..."
-Add-Type -AssemblyName System.Windows.Forms
-while ($true) { [System.Windows.Forms.Application]::DoEvents(); Start-Sleep -Seconds 180 }
+
+Write-Host "Keeping computer awake... Press Ctrl+C to stop" -ForegroundColor Green
+
+while ($true) {
+    # Simulate activity every 50 seconds
+    $wsh = New-Object -ComObject WScript.Shell
+    $wsh.SendKeys("{NUMLOCK}{NUMLOCK}")
+    Start-Sleep -Seconds 50
+}
