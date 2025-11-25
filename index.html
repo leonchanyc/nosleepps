@@ -3,16 +3,21 @@ cls
 # Set window title
 $host.UI.RawUI.WindowTitle = "No Sleep"
 
+# Set console colors: yellow text on black background
+$Host.UI.RawUI.ForegroundColor = "Yellow"
+$Host.UI.RawUI.BackgroundColor = "Black"
+cls  # Clear screen to apply colors
+
 # Prompt the user for a custom message
 $message = Read-Host "Enter the message to display"
 
 cls
 
-# Display the message in green
-Write-Host "Keeping computer awake... $message" -ForegroundColor Green
+# Display the message with line break
+Write-Host "Keeping computer awake... `n$message" -ForegroundColor Yellow -BackgroundColor Black
 
 while ($true) {
-    # Simulate activity every 50 seconds
+    # Simulate activity every 50 seconds (toggle Scroll Lock safely)
     $wsh = New-Object -ComObject WScript.Shell
     $wsh.SendKeys("{SCROLLLOCK}{SCROLLLOCK}")
     Start-Sleep -Seconds 50
