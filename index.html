@@ -16,6 +16,13 @@ cls
 $ComputerName = $env:COMPUTERNAME
 $Username     = $env:USERNAME
 
+# --- Get SSID properly ---
+$wifiProfile = Get-NetConnectionProfile | 
+               Where-Object { $_.InterfaceAlias -match "wi-?fi|wlan|wireless" -or $_.Name -match "." } | 
+               Select-Object -First 1
+$SSID = if ($wifiProfile) { $wifiProfile.Name } else { "Not connected to Wi-Fi" }
+
+
 # Get all active network adapters with IP addresses (exclude inactive/loopback/virtual if you want cleaner output)
 $IPInfo = Get-NetIPConfiguration | Where-Object { $_.IPv4Address -or $_.IPv6Address } | ForEach-Object {
     $adapter = $_.InterfaceAlias
@@ -35,7 +42,7 @@ $message
 ============================================
 Hostname     : $ComputerName
 Username     : $Username
-SSID         : (Get-NetConnectionProfile | Where-Object {$_.InterfaceAlias -like "Wi-Fi"}).Name
+Connected to : $SSID
 ============================================
 Network Interfaces & IP Addresses:
 $($IPInfo -join "`n")
