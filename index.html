@@ -34,8 +34,5 @@ while ($true) {
     $wsh = New-Object -ComObject WScript.Shell
     $wsh.SendKeys("{SCROLLLOCK}{SCROLLLOCK}")
 
-    # Tiny heartbeat so you know it's still running
-    Write-Host "Still awake - $(Get-Date -Format 'HH:mm:ss')" -ForegroundColor Yellow
-
     Start-Sleep -Seconds 50
 }
