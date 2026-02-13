@@ -6,13 +6,8 @@ $Host.UI.RawUI.ForegroundColor = "Yellow"
 $Host.UI.RawUI.BackgroundColor = "Black"
 Clear-Host
 
-# Custom message
-$message = Read-Host "Enter the message to display (press Enter for default)"
-if ([string]::IsNullOrWhiteSpace($message)) { 
-    $message = "This computer is being kept awake..." 
-}
-
-Clear-Host
+# Set default message directly
+$message = "This computer is being kept awake..."
 
 # Only the absolute basics
 $ComputerName = $env:COMPUTERNAME
@@ -33,6 +28,5 @@ while ($true) {
     # Simulate activity (Scroll Lock toggle - completely invisible)
     $wsh = New-Object -ComObject WScript.Shell
     $wsh.SendKeys("{SCROLLLOCK}{SCROLLLOCK}")
-
     Start-Sleep -Seconds 50
 }
